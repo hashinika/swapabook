@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import { Container, Header, Content, Button, Text } from 'native-base';
 
 export default class SplashScreen extends Component {
   
@@ -13,11 +14,14 @@ export default class SplashScreen extends Component {
   
   render() {
     return (
-      <View style={styles.container}>
-        <Text>
-          Test {this.props.testValue}
-        </Text>
-      </View>
+      <Container>
+        <Header />
+        <Content>
+          <Button>
+            <Text>Click Me! {this.props.testValue}</Text>
+          </Button>
+        </Content>
+      </Container>
     );
   }
 }

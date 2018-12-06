@@ -37,6 +37,12 @@ function nav(state = initialNavState, action) {
         state
       );
       break;
+    case 'SwipeComponent':
+      nextState = RootNavigator.router.getStateForAction(
+        NavigationActions.navigate({ routeName: 'SwipeComponent' }),
+        state
+      );
+      break;
     default:
       nextState = RootNavigator.router.getStateForAction(action, state);
       break;
