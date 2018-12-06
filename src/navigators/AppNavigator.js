@@ -10,6 +10,7 @@ import {
 import LoginScreen from '../components/LoginScreen';
 import MainScreen from '../components/MainScreen';
 import ProfileScreen from '../components/ProfileScreen';
+import SplashScreen from '../components/Splash/SplashScreenLink';
 
 const middleware = createReactNavigationReduxMiddleware(
   'root',
@@ -20,6 +21,7 @@ const RootNavigator = createStackNavigator({
   Login: { screen: LoginScreen },
   Main: { screen: MainScreen },
   Profile: { screen: ProfileScreen },
+  SplashScreen: {screen: SplashScreen}
 });
 
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');

@@ -3,6 +3,10 @@ import { NavigationActions } from 'react-navigation';
 
 import { RootNavigator } from '../navigators/AppNavigator';
 
+// reducers
+import { user } from './user.login.reducer';
+
+
 // Start with two routes: The Main screen, with the Login screen on top.
 const firstAction = RootNavigator.router.getActionForPathAndParams('Main');
 const tempNavState = RootNavigator.router.getStateForAction(firstAction);
@@ -24,6 +28,12 @@ function nav(state = initialNavState, action) {
     case 'Logout':
       nextState = RootNavigator.router.getStateForAction(
         NavigationActions.navigate({ routeName: 'Login' }),
+        state
+      );
+      break;
+    case 'SplashScreen':
+      nextState = RootNavigator.router.getStateForAction(
+        NavigationActions.navigate({ routeName: 'SplashScreen' }),
         state
       );
       break;
@@ -49,9 +59,15 @@ function auth(state = initialAuthState, action) {
   }
 }
 
-const AppReducer = combineReducers({
+function lastAction(state = null, action) {
+  return action;
+}
+
+const rootReducer = combineReducers({
+  lastAction,
   nav,
   auth,
+  user
 });
 
-export default AppReducer;
+export default rootReducer;
