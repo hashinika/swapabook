@@ -43,6 +43,12 @@ function nav(state = initialNavState, action) {
         state
       );
       break;
+    case 'ScannerComponent':
+      nextState = RootNavigator.router.getStateForAction(
+        NavigationActions.navigate({ routeName: 'ScannerComponent' }),
+        state
+      );
+      break;
     default:
       nextState = RootNavigator.router.getStateForAction(action, state);
       break;

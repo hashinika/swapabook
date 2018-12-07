@@ -26,7 +26,11 @@ const LoginScreen = ({ navigation }) => (
     </Text>
     <Button
       onPress={() => navigation.dispatch({ type: 'SwipeComponent' })}
-      title="SplashScreen"
+      title="SwipeComponent"
+    />
+    <Button
+      onPress={() => navigation.dispatch({ type: 'ScannerComponent' })}
+      title="Scanner Component"
     />
   </View>
 );
