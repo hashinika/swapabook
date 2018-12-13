@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-
+import { StyleSheet, Button, Text, View } from 'react-native';
 import LoginStatusMessage from './LoginStatusMessage';
 import AuthButton from './AuthButton';
 
@@ -17,6 +16,21 @@ const MainScreen = () => (
   <View style={styles.container}>
     <LoginStatusMessage />
     <AuthButton />
+    
+    <Text style={styles.welcome}>
+      Screen A
+    </Text>
+    <Text style={styles.instructions}>
+      This is great
+    </Text>
+    <Button
+      onPress={() => navigation.dispatch({ type: 'SwipeComponent' })}
+      title="SwipeComponent"
+    />
+    <Button
+      onPress={() => navigation.dispatch({ type: 'ScannerComponent' })}
+      title="Scanner Component"
+    />
   </View>
 );
 

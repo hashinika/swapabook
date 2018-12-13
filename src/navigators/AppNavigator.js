@@ -7,7 +7,7 @@ import {
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
 
-import LoginScreen from '../components/LoginScreen';
+import LoginComponent from '../components/LoginComponentLink';
 import MainScreen from '../components/MainScreen';
 import ProfileScreen from '../components/ProfileScreen';
 import SplashScreen from '../components/Splash/SplashScreenLink';
@@ -20,7 +20,7 @@ const middleware = createReactNavigationReduxMiddleware(
 );
 
 const RootNavigator = createStackNavigator({
-  Login: { screen: LoginScreen },
+  Login: { screen: LoginComponent },
   Main: { screen: MainScreen },
   Profile: { screen: ProfileScreen },
   SplashScreen: {screen: SplashScreen},
