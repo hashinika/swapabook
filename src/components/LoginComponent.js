@@ -18,6 +18,7 @@ export default class LoginComponent extends Component {
   }
   
   render() {
+    const {navigation} = this.props;
     return (
       <Container>
         <Grid style={styles.gridMain}>
@@ -50,7 +51,9 @@ export default class LoginComponent extends Component {
           </Row>
           <Row style={styles.rowThree} size={1}>
             <View style={styles.buttonContainer}>
-              <Button style={[styles.buttonStyle]}>
+              <Button style={[styles.buttonStyle]}
+                      onPress={() => navigation.dispatch({ type: 'SwipeComponent' })}
+              >
                 <Text style={styles.buttonTextStyle}> Log In </Text>
               </Button>
               <Button style={[styles.buttonStyle, {backgroundColor: 'red'}]}>
