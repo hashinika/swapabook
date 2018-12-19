@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, StyleSheet, width } from 'react-native';
 import { Button, Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon } from 'native-base';
 import NavButton from '../widgets/NavButton/NavButton';
 
@@ -25,20 +25,45 @@ export default class SwipeComponent extends Component {
   
   constructor(props){
     super(props);
+    this.onSwipeRight = this.onSwipeRight.bind(this);
+    this.onSwipeLeft = this.onSwipeLeft.bind(this);
+    this.state = {
+      isSwipedRight: false
+    };
   }
   
   componentDidMount(){
     this.props.testLogin(2);
   }
   
+  onSwipeRight(item) {
+    this.setState({
+      isSwipedRight: true
+    });
+    
+    setInterval(() => {
+      this.setState({
+        isSwipedRight: false
+      })
+    }, 500);
+    
+    console.log('Item right:', item);
+  }
+  
+  onSwipeLeft(item) {
+    console.log('Item left:', item);
+  }
+  
   render() {
     const {navigation} = this.props;
     
     return (
-      <Container style={{ backgroundColor: '#D0D0D0', marginTop:50 }}>
-        <View>
+      <Container style={{ backgroundColor: this.state.isSwipedRight? 'green': '#D0D0D0', marginTop:50 }}>
+        <View >
           <DeckSwiper
             dataSource={cards}
+            onSwipeRight={(item) => {this.onSwipeRight(item)}}
+            onSwipeLeft={(item) => {this.onSwipeLeft(item)}}
             renderItem={item =>
               <Card style={{ elevation: 3 }}>
                 <CardItem>
@@ -66,6 +91,17 @@ export default class SwipeComponent extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  overlay: {
+    left: 0,
+    top: 0,
+    opacity: 1,
+    backgroundColor: 'black',
+    width: '100%',
+    height: '100%'
+  }
+});
 
 SwipeComponent.propTypes = {
 };
