@@ -38,6 +38,7 @@ export default class ScannerComponent extends Component {
             permissionDialogMessage={'We need your permission to use your camera phone'}
             onGoogleVisionBarcodesDetected={({ barcodes }) => {
               console.log(barcodes);
+              this.props.fetchBookDetails(barcodes[0].data);
               this.setState({
                 barcode:barcodes[0].data
               });
@@ -48,7 +49,15 @@ export default class ScannerComponent extends Component {
               onPress={this.takePicture.bind(this)}
               style = {styles.capture}
             >
-              <Text style={{fontSize: 14}}>{this.state.barcode}</Text>
+              {this.props.volumeInfo.authors && this.props.volumeInfo.authors.length > 0
+                &&
+                <View>
+                  <Text style={{fontSize: 14}}>ISBN : {this.state.barcode}</Text>
+                  <Text style={{fontSize: 14}}>{this.props.volumeInfo.title}</Text>
+                  <Text style={{fontSize: 14}}>{this.props.volumeInfo.authors[0]}</Text>
+                </View>
+              }
+              
             </TouchableOpacity>
           </View>
         </View>

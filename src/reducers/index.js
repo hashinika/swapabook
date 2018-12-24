@@ -5,7 +5,7 @@ import { RootNavigator } from '../navigators/AppNavigator';
 
 // reducers
 import { user } from './user.login.reducer';
-
+import { books } from './book.detail.reducer';
 
 // Start with two routes: The Main screen, with the Login screen on top.
 const firstAction = RootNavigator.router.getActionForPathAndParams('Main');
@@ -79,7 +79,8 @@ const rootReducer = combineReducers({
   lastAction,
   nav,
   auth,
-  user
+  user,
+  books
 });
 
 export default rootReducer;
