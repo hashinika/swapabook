@@ -11,7 +11,6 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => {
   return {
     login: (payload) => {
-      console.log('HDV payload:', payload);
       dispatch(login(payload));
     }
   };

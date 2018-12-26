@@ -10,8 +10,8 @@ export default class LoginComponent extends Component {
   constructor(props){
     super(props);
     this.state ={
-      username: '',
-      password: '',
+      username: 'haswin',
+      password: '1234',
     };
     this.handleLogin = this.handleLogin.bind(this);
   }

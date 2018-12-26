@@ -1,18 +1,25 @@
 import {Platform} from 'react-native';
-
+import {getStorageValue} from "./storage.helpers";
 const HEADERS = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
 };
 
 export function get(url, headers) {
+  return getStorageValue('AUTH_TOKEN').then(token =>  {
     headers = Object.assign({}, HEADERS, headers);
-    return fetch(url, {headers})
-        .then((res) => {
-            const statusCode = res.status;
-            const data = res.json();
-            return Promise.all([statusCode, data]);
+    if(token) {
+      headers = Object.assign(headers, {
+          'x-access-token': token
         });
+    }
+    return fetch(url, {headers})
+      .then((res) => {
+        const statusCode = res.status;
+        const data = res.json();
+        return Promise.all([statusCode, data]);
+      });
+  })
 }
 
 export function post(url, body, headers) {

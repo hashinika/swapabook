@@ -33,7 +33,7 @@ export default class SwipeComponent extends Component {
   }
   
   componentDidMount(){
-    this.props.testLogin(2);
+    this.props.getSwipeList({});
   }
   
   onSwipeRight(item) {
