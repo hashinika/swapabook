@@ -14,6 +14,7 @@ import SplashScreen from '../components/Splash/SplashScreenLink';
 import SwipeComponent from '../components/Swipe/SwipeComponentLink';
 import ScannerComponent from '../components/widgets/scanner/ScannerComponentLink';
 import NavButton from '../components/widgets/NavButton/NavButton';
+import AlertBox from '../components/widgets/Alert/AlertBox';
 
 import LoginScreen from '../components/LoginScreen';
 const middleware = createReactNavigationReduxMiddleware(
@@ -28,7 +29,8 @@ const RootNavigator = createStackNavigator({
   SplashScreen: {screen: SplashScreen},
   SwipeComponent: {screen: SwipeComponent},
   ScannerComponent: {screen: ScannerComponent},
-  NavButton: {screen: NavButton}
+  NavButton: {screen: NavButton},
+  AlertBox: {screen: AlertBox}
 });
 
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');

@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Alert } from 'react-native';
 import { Container, Button, Content, Form, Item, Input, Text } from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import AlertBox from './widgets/Alert/AlertBox';
 
 export default class LoginComponent extends Component {
   
   constructor(props){
     super(props);
     this.state ={
-      barcode: ''
-    }
+      username: '',
+      password: '',
+    };
+    this.handleLogin = this.handleLogin.bind(this);
   }
   
   componentDidMount(){
   
   }
   
+  
+  handleLogin () {
+    const {username, password} = this.state;
+    this.props.login({username, password});
+  }
   render() {
-    const {navigation} = this.props;
+    const {navigation, errorMessage} = this.props;
     return (
       <Container>
         <Grid style={styles.gridMain}>
@@ -35,13 +43,16 @@ export default class LoginComponent extends Component {
                 <View style={styles.inputWrapper}>
                   <View style={styles.inputContainer}>
                     <Item rounded>
-                      <Input style={styles.inputStyle} placeholder="Username" />
+                      <Input style={styles.inputStyle} placeholder="Username"
+                             onChangeText={(text) => {this.setState({username: text})}}
+                      />
                     </Item>
                   </View>
                   <View style={styles.inputContainer}>
                     <Item rounded>
                       <Input
                         style={styles.inputStyle}
+                        onChangeText={(text) => {this.setState({password: text})}}
                         secureTextEntry={true} placeholder="Password" />
                     </Item>
                   </View>
@@ -51,8 +62,9 @@ export default class LoginComponent extends Component {
           </Row>
           <Row style={styles.rowThree} size={1}>
             <View style={styles.buttonContainer}>
+              {errorMessage && <AlertBox message={errorMessage} />}
               <Button style={[styles.buttonStyle]}
-                      onPress={() => navigation.dispatch({ type: 'SwipeComponent' })}
+                      onPress={() => this.handleLogin()}
               >
                 <Text style={styles.buttonTextStyle}> Log In </Text>
               </Button>
