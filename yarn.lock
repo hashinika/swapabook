@@ -4208,6 +4208,14 @@ react-native-safe-area-view@^0.8.0:
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
+react-native-stars-rating@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-stars-rating/-/react-native-stars-rating-0.1.7.tgz#6e2a36544d99d40de0e93a1e2db7c2476839002b"
+
+react-native-stars@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/react-native-stars/-/react-native-stars-1.1.5.tgz#48e56c566cefac5086edd61b94eab2521440fc49"
+
 react-native-tab-view@^0.0.77:
   version "0.0.77"
   resolved "http://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-0.0.77.tgz#11ceb8e7c23100d07e628dc151b57797524d00d4"

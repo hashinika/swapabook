@@ -13,6 +13,7 @@ import ProfileScreen from '../components/ProfileScreen';
 import SplashScreen from '../components/Splash/SplashScreenLink';
 import SwipeComponent from '../components/Swipe/SwipeComponentLink';
 import ScannerComponent from '../components/widgets/scanner/ScannerComponentLink';
+import BookDetailComponent from '../components/Book/BookDetailComponentLink';
 import NavButton from '../components/widgets/NavButton/NavButton';
 import AlertBox from '../components/widgets/Alert/AlertBox';
 
@@ -30,7 +31,8 @@ const RootNavigator = createStackNavigator({
   SwipeComponent: {screen: SwipeComponent},
   ScannerComponent: {screen: ScannerComponent},
   NavButton: {screen: NavButton},
-  AlertBox: {screen: AlertBox}
+  AlertBox: {screen: AlertBox},
+  BookDetailComponent: {screen: BookDetailComponent}
 });
 
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');

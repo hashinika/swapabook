@@ -13,7 +13,9 @@ export default class ScannerComponent extends Component {
   }
   
   componentDidMount(){
-  
+    // for testing only else remove
+    this.props.testFetchBookDetails();
+    
   }
   
   takePicture = async function() {
