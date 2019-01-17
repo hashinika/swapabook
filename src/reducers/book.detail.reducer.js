@@ -1,17 +1,31 @@
 
-import { SET_BOOK_DATA } from '../actions/book.details.actions';
+import { SET_BOOK_DATA, SET_COLLECTION_DATA, SET_SWIPE_LIST } from '../actions/book.details.actions';
 
 export const INITIAL_STATE = {
-  volumeInfo : {}
+  volumeInfo : {},
+  collection: [],
+  swipeList: []
 };
 
 export function books (state = INITIAL_STATE, action ) {
   switch (action.type) {
+    case SET_SWIPE_LIST: {
+      return {
+        ...state,
+        swipeList: action.payload
+      };
+    }
     case SET_BOOK_DATA: {
       return {
         ...state,
         volumeInfo: action.payload
       };
+    }
+    case SET_COLLECTION_DATA : {
+      return {
+        ...state,
+        collection: action.payload
+      }
     }
     default: {
       return state;

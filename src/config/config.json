@@ -2,6 +2,10 @@
   "BASE_URL" : "http://192.168.1.7:3000/api/",
   "USER" : {
     "LOGIN": "auth/signin",
-    "SWIPE_LIST": "test/user"
+  },
+  "BOOK": {
+    "ADD": "book/add",
+    "GET": "book/collection",
+    "GET_SWAPS": "book/swapList/"
   }
 }

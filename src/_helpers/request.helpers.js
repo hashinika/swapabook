@@ -23,16 +23,24 @@ export function get(url, headers) {
 }
 
 export function post(url, body, headers) {
-    headers = Object.assign({}, HEADERS, headers);
-    return fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: new Headers(headers)
-    }).then((res) => {
-        const statusCode = res.status;
-        const data = res.json();
-        return Promise.all([statusCode, data]);
-    });
+  return getStorageValue('AUTH_TOKEN').then(token =>  {
+        headers = Object.assign({}, HEADERS, headers);
+        if(token) {
+          console.log('HDV token post: ', token);
+          headers = Object.assign(headers, {
+            'x-access-token': token
+          });
+        }
+        return fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: new Headers(headers)
+        }).then((res) => {
+          const statusCode = res.status;
+          const data = res.json();
+          return Promise.all([statusCode, data]);
+        });
+  })
 }
 
 export function put(url, body, headers) {

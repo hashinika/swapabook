@@ -5,14 +5,15 @@ import {getSwipeList} from '../../thunks/user.login.thunk';
 
 function mapStateToProps(state) {
   return {
-    testValue: state.user.test
+    testValue: state.user.test,
+    swipeList: state.books.swipeList
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     testLogin: (payload) => {
-      dispatch(testLogin(payload));
+      //dispatch(testLogin(payload));
     },
     getSwipeList: (payload) => {
       dispatch(getSwipeList(payload));

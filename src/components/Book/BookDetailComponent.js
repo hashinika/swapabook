@@ -27,7 +27,10 @@ export default class BookDetailComponent extends Component {
   
   handleAdd(){
     const {stars} = this.state;
-    this.props.addToCollection()
+    this.props.addToCollection({
+      ...this.props.volumeInfo,
+      bookQualityRating: stars
+    });
   }
   
   renderThumbnail() {

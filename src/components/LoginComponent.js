@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     justifyContent: 'center',
+    padding:20
   },
   logo: {
     margin: 30,

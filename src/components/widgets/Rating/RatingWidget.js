@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
 });
 
 RatingWidget.propTypes = {
-  navigation: PropTypes.object.isRequired,
 };
 
 RatingWidget.navigationOptions = {

@@ -27,6 +27,7 @@ export default class SwipeComponent extends Component {
     super(props);
     this.onSwipeRight = this.onSwipeRight.bind(this);
     this.onSwipeLeft = this.onSwipeLeft.bind(this);
+    this.renderCard = this.renderCard.bind(this);
     this.state = {
       isSwipedRight: false
     };
@@ -54,38 +55,47 @@ export default class SwipeComponent extends Component {
     console.log('Item left:', item);
   }
   
+  renderCard(item) {
+    console.log('HDV item: ', item);
+    return (
+      <Card style={{ elevation: 3 }}>
+        <CardItem>
+          <Left>
+            <Thumbnail source={{uri: 'http://res.cloudinary.com/haswind/image/upload/v1504502850/teamgrid/hashi/0.jpg'}} />
+            <Body>
+            <Text style={{fontWeight: 'bold', fontSize:31}}>{item.title}</Text>
+            <Text>{item.id}</Text>
+            </Body>
+          </Left>
+        </CardItem>
+        <CardItem cardBody>
+          <Image style={{ height: 300, flex: 1 }}
+                 source={{uri: item.thumbnail}}/>
+        </CardItem>
+        <CardItem>
+          <Icon name="heart" style={{ color: '#ED4A6A' }} />
+          <Text>{item.description}</Text>
+          <Text>{item.bookQualityRating}</Text>
+        </CardItem>
+      </Card>
+    );
+  }
+  
   render() {
-    const {navigation} = this.props;
-    
+    const {navigation, swipeList} = this.props;
+    console.log('HDV swipeList props: ', this.props.swipeList);
     return (
       <Container style={{ backgroundColor: this.state.isSwipedRight? 'green': '#D0D0D0', marginTop:50 }}>
         <View >
-          <DeckSwiper
-            dataSource={cards}
-            onSwipeRight={(item) => {this.onSwipeRight(item)}}
-            onSwipeLeft={(item) => {this.onSwipeLeft(item)}}
-            renderItem={item =>
-              <Card style={{ elevation: 3 }}>
-                <CardItem>
-                  <Left>
-                    <Thumbnail source={{uri: 'http://res.cloudinary.com/haswind/image/upload/v1504502850/teamgrid/hashi/0.jpg'}} />
-                    <Body>
-                    <Text style={{fontWeight: 'bold', fontSize:31}}>{item.text}</Text>
-                    <Text>{item.name}</Text>
-                    </Body>
-                  </Left>
-                </CardItem>
-                <CardItem cardBody>
-                  <Image style={{ height: 300, flex: 1 }}
-                         source={{uri: item.image}}/>
-                </CardItem>
-                <CardItem>
-                  <Icon name="heart" style={{ color: '#ED4A6A' }} />
-                  <Text>@Hashinika</Text>
-                </CardItem>
-              </Card>
-            }
-          />
+          { swipeList && swipeList.length > 0 &&
+            <DeckSwiper
+              dataSource={swipeList}
+              onSwipeRight={(item) => {this.onSwipeRight(item)}}
+              onSwipeLeft={(item) => {this.onSwipeLeft(item)}}
+              renderItem={item => this.renderCard(item)}
+            />
+          }
+         
         </View>
       </Container>
     );
