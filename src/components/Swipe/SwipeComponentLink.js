@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import SwipeComponent from './SwipeComponent';
 import {testLogin} from '../../actions/user.login.actions';
 import {getSwipeList} from '../../thunks/user.login.thunk';
+import {swipeRight} from '../../thunks/book.details.thunk';
 
 function mapStateToProps(state) {
   return {
@@ -17,6 +18,9 @@ const mapDispatchToProps = dispatch => {
     },
     getSwipeList: (payload) => {
       dispatch(getSwipeList(payload));
+    },
+    swipeRight: (payload) => {
+      dispatch(swipeRight(payload));
     }
   };
 };

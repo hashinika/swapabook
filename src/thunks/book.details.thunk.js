@@ -44,7 +44,6 @@ export const addToCollection = (payload) => dispatch => {
       })));
     });
 };
-
 export const getCollection = (payload) => dispatch => {
   get(config.BASE_URL+config.BOOK.GET)
     .then(response => {
@@ -72,5 +71,33 @@ export const fetchBookDetails = (payload) => dispatch => {
     })
     .catch(error => {
       console.log(error);
+    });
+};
+
+export const swipeRight = (payload) => dispatch => {
+  console.log('HDV swipeRight payload: ', payload);
+  
+  const body = {
+    BOOK_ID: payload.id,
+    BOOK_OWNER_ID: payload.userId
+  };
+  
+  post(config.BASE_URL+config.BOOK.SWIPE_RIGHT, body)
+    .then(response => {
+      console.log('HDV API swipeRight response: ', response);
+      if (response[0] === 200) {
+        console.log('HDV API  swipeRight response: ', response);
+      } else {
+        dispatch(dispatch(showError({
+          message: response[1].reason
+        })));
+        console.log('HDV Error 123:', response[0], response[1].reason);
+      }
+    })
+    .catch(error => {
+      console.log('HDV error 99', error);
+      dispatch(dispatch(showError({
+        message: 'Server Error Occurred'
+      })));
     });
 };

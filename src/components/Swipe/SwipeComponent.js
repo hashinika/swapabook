@@ -49,6 +49,7 @@ export default class SwipeComponent extends Component {
     }, 500);
     
     console.log('Item right:', item);
+    this.props.swipeRight(item);
   }
   
   onSwipeLeft(item) {
