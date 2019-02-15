@@ -17,6 +17,7 @@ import BookDetailComponent from '../components/Book/BookDetailComponentLink';
 import CollectionComponent from '../components/Book/CollectionComponentLink';
 import NavButton from '../components/widgets/NavButton/NavButton';
 import AlertBox from '../components/widgets/Alert/AlertBox';
+import SwapComponent from '../components/Swap/SwapComponentLink';
 
 import LoginScreen from '../components/LoginScreen';
 const middleware = createReactNavigationReduxMiddleware(
@@ -34,7 +35,8 @@ const RootNavigator = createStackNavigator({
   NavButton: {screen: NavButton},
   AlertBox: {screen: AlertBox},
   BookDetailComponent: {screen: BookDetailComponent},
-  CollectionComponent: {screen: CollectionComponent}
+  CollectionComponent: {screen: CollectionComponent},
+  SwapComponent: {screen: SwapComponent}
 });
 
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');

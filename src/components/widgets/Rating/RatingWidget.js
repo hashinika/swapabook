@@ -16,7 +16,7 @@ export default class RatingWidget extends Component {
     const {disabled,onUpdate, defaultValue , count, half, starSize} = this.props;
     return (
       <View style={{alignItems:'center', backgroundColor: 'rgba(52, 52, 52, 0.8)', }}>
-        <Text>Rate the condition of the book.</Text>
+        {disabled? <Text></Text>: <Text>Rate the condition of the book.</Text>}
         <Stars
           disabled={disabled}
           update={(val)=>{onUpdate(val)}}

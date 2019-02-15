@@ -5,6 +5,18 @@ export function setBookData (payload) {
   return { type: SET_BOOK_DATA , payload}
 }
 
+export const SET_MATCH_BOOK_DATA = 'SET_MATCH_BOOK_DATA';
+
+export function setMatchBookData (payload) {
+  return { type: SET_MATCH_BOOK_DATA , payload}
+}
+
+export const RESET_MATCH_BOOK_DATA = 'RESET_MATCH_BOOK_DATA';
+
+export function resetMatchBookData () {
+  return { type: RESET_MATCH_BOOK_DATA }
+}
+
 export const SET_COLLECTION_DATA = 'SET_COLLECTION_DATA';
 
 export function setCollectionData (payload) {

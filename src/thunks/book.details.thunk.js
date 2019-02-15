@@ -1,5 +1,5 @@
 import {get, post} from "../_helpers/index";
-import {setBookData} from '../actions/book.details.actions';
+import {setBookData, setMatchBookData} from '../actions/book.details.actions';
 import { NavigationActions } from 'react-navigation';
 import * as config from '../config/config.json';
 import {showError} from '../actions/error.actions';
@@ -86,11 +86,13 @@ export const swipeRight = (payload) => dispatch => {
     .then(response => {
       console.log('HDV API swipeRight response: ', response);
       if (response[0] === 200) {
+        console.log('HDV match :', response[1]);
         console.log('HDV API  swipeRight response: ', response);
+        dispatch(setMatchBookData(response[1]));
       } else {
-        dispatch(dispatch(showError({
+        dispatch(showError({
           message: response[1].reason
-        })));
+        }));
         console.log('HDV Error 123:', response[0], response[1].reason);
       }
     })
@@ -101,3 +103,7 @@ export const swipeRight = (payload) => dispatch => {
       })));
     });
 };
+
+
+
+

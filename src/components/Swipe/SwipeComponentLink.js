@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 import SwipeComponent from './SwipeComponent';
-import {testLogin} from '../../actions/user.login.actions';
+// import {} from '../../actions/user.login.actions';
 import {getSwipeList} from '../../thunks/user.login.thunk';
 import {swipeRight} from '../../thunks/book.details.thunk';
-
+import {navigateToPage} from '../../thunks/navigation.thunk';
 function mapStateToProps(state) {
   return {
     testValue: state.user.test,
-    swipeList: state.books.swipeList
+    swipeList: state.books.swipeList,
+    matchBookData: state.books.matchBookData
   };
 }
 
@@ -21,6 +22,9 @@ const mapDispatchToProps = dispatch => {
     },
     swipeRight: (payload) => {
       dispatch(swipeRight(payload));
+    },
+    navigateToSwapLocationPage: (pageName) => {
+      dispatch(navigateToPage(pageName));
     }
   };
 };

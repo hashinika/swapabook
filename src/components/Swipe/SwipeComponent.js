@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, width } from 'react-native';
 import { Button, Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon } from 'native-base';
 import NavButton from '../widgets/NavButton/NavButton';
+import Dialog, { SlideAnimation, DialogContent } from 'react-native-popup-dialog';
+import MatchPopUpComponent from '../Book/MatchPopUpComponent';
+import RatingWidget from '../widgets/Rating/RatingWidget';
+import SideMenu from 'react-native-side-menu';
+import Menu from '../widgets/Drawer/Menu';
 
 const cards = [
   {
@@ -28,25 +33,32 @@ export default class SwipeComponent extends Component {
     this.onSwipeRight = this.onSwipeRight.bind(this);
     this.onSwipeLeft = this.onSwipeLeft.bind(this);
     this.renderCard = this.renderCard.bind(this);
+    this.onTouchOutside =  this.onTouchOutside.bind(this);
+    this.toggle = this.toggle.bind(this);
     this.state = {
-      isSwipedRight: false
+      isSwipedRight: false,
+      isModalVisible: false,
+      isOpen: false,
+      selectedItem: 'About',
     };
   }
   
   componentDidMount(){
     this.props.getSwipeList({});
+    
   }
   
   onSwipeRight(item) {
     this.setState({
-      isSwipedRight: true
+      // isSwipedRight: true,
+      isModalVisible: true
     });
     
-    setInterval(() => {
-      this.setState({
-        isSwipedRight: false
-      })
-    }, 500);
+    // setInterval(() => {
+    //   this.setState({
+    //     isSwipedRight: false
+    //   })
+    // }, 500);
     
     console.log('Item right:', item);
     this.props.swipeRight(item);
@@ -82,11 +94,52 @@ export default class SwipeComponent extends Component {
     );
   }
   
+  onTouchOutside () {
+    this.setState({ isModalVisible: false });
+  }
+  
+  // menu methods
+  
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  }
+  
+  updateMenuState(isOpen) {
+    this.setState({ isOpen });
+  }
+  
+  onMenuItemSelected = item => {
+    console.log('HDV item clicked!', item);
+    this.setState({
+      isOpen: false,
+      selectedItem: item,
+    });
+  }
+  
   render() {
     const {navigation, swipeList} = this.props;
-    console.log('HDV swipeList props: ', this.props.swipeList);
+    console.log('HDV this.props.matchBookData', this.props.matchBookData);
+    // const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
+    
+    // if menu is needed  put the following to render
+    {/*<SideMenu*/}
+      {/*menu={menu}*/}
+      {/*isOpen={this.state.isOpen}*/}
+      {/*onChange={isOpen => this.updateMenuState(isOpen)}*/}
+    {/*> </SideMenu>*/}
     return (
-      <Container style={{ backgroundColor: this.state.isSwipedRight? 'green': '#D0D0D0', marginTop:50 }}>
+      
+        <Container style={{ backgroundColor: this.state.isSwipedRight? 'green': '#D0D0D0', marginTop:50 }}>
+        <View>
+          <MatchPopUpComponent
+            navigateToSwapLocationPage={this.props.navigateToSwapLocationPage}
+            data={this.props.matchBookData}
+            visible={this.state.isModalVisible}
+            onTouchOutside = {() => { this.onTouchOutside() }}
+          />
+        </View>
         <View >
           { swipeList && swipeList.length > 0 &&
             <DeckSwiper
@@ -96,7 +149,9 @@ export default class SwipeComponent extends Component {
               renderItem={item => this.renderCard(item)}
             />
           }
-         
+  
+          <Button
+            onPress={this.toggle}/>
         </View>
       </Container>
     );
