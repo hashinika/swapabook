@@ -4,6 +4,8 @@ import SwipeComponent from './SwipeComponent';
 import {getSwipeList} from '../../thunks/user.login.thunk';
 import {swipeRight} from '../../thunks/book.details.thunk';
 import {navigateToPage} from '../../thunks/navigation.thunk';
+import {resetMatchBookData} from '../../actions/book.details.actions';
+
 function mapStateToProps(state) {
   return {
     testValue: state.user.test,
@@ -22,6 +24,9 @@ const mapDispatchToProps = dispatch => {
     },
     swipeRight: (payload) => {
       dispatch(swipeRight(payload));
+    },
+    resetMatchBookData: () => {
+      dispatch(resetMatchBookData());
     },
     navigateToSwapLocationPage: (pageName) => {
       dispatch(navigateToPage(pageName));

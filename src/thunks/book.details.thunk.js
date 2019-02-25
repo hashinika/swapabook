@@ -88,7 +88,11 @@ export const swipeRight = (payload) => dispatch => {
       if (response[0] === 200) {
         console.log('HDV match :', response[1]);
         console.log('HDV API  swipeRight response: ', response);
-        dispatch(setMatchBookData(response[1]));
+        if(response[1] && response[1].title) {
+          console.log('HDV swipe match found !');
+          dispatch(setMatchBookData(response[1]));
+        }
+        
       } else {
         dispatch(showError({
           message: response[1].reason

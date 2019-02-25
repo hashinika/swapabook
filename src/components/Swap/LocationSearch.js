@@ -1,33 +1,88 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, width, ListView  } from 'react-native';
-import { View, Header, Item, Input, Icon, Button, Text } from 'native-base';
+import { Image, StyleSheet, width, ListView, FlatList, TouchableWithoutFeedback   } from 'react-native';
+import { View, Header, Item, Input, Icon, Button, Text, Content, List, ListItem, } from 'native-base';
+
+import {getCurrentLocation} from '../../_helpers';
 
 export default class LocationSearch extends Component {
   
   constructor(props){
     super(props);
     this.state ={
-      searchValue: ''
+      searchValue: '',
+      currentLocation: {},
+      location:{}
     }
+    
+    this.handleSearch = this.handleSearch.bind(this);
+    this.renderList = this.renderList.bind(this);
+    this.onPressItem = this.onPressItem.bind(this);
+  }
+  
+  handleSearch(searchValue) {
+    this.setState({searchValue});
+    
+    if (searchValue && searchValue.length >3) {
+      getCurrentLocation().then((position) => {
+        console.log('HDV position:', position);
+        this.setState({
+          currentLocation: {
+            latitude: position.latitude,
+            longitude: position.longitude
+          }
+        });
+  
+        this.props.fetchLocations( {
+          searchValue,
+          position
+        });
+      });
+      
+      
+    }
+  }
+
+  renderList(item) {
+    return (
+      <ListItem onPress= {() => this.onPressItem(item)}>
+        <Text>{item.name}</Text>
+      </ListItem>
+    );
+  }
+  
+  onPressItem(location) {
+    
+    if(location) {
+      this.props.setSelectedLocation(location);
+    }
+    
   }
   
   render() {
-    
+    console.log('HDV swaps swapDetails :', this.props.swapDetails);
+    const {locationList} = this.props.swapDetails;
     return (
       <View style={styles.containerStyle}>
         <Header searchBar rounded>
           <Item>
             <Icon name="ios-search" />
-            <Input placeholder="Search"  value={this.state.searchValue} onChangeText={(text) => {this.setState({searchValue: text})}}/>
+            <Input placeholder="Search for a venue"  value={this.state.searchValue} onChangeText={(text) => this.handleSearch(text)}/>
             <Icon name="ios-people" />
           </Item>
           <Button transparent>
             <Text>Search</Text>
           </Button>
         </Header>
-        <View>
-          <Text>Hello</Text>
-        </View>
+        <Content>
+          {locationList
+          && locationList.length>0 &&
+          <FlatList
+            data={locationList}
+            renderItem={({item}) => this.renderList(item)}
+          />
+          }
+          
+        </Content>
       </View>
     );
   }
@@ -35,11 +90,9 @@ export default class LocationSearch extends Component {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    backgroundColor: '#d5d5d5',
-    height: '100%'
+    height: 350
   },
   headerStyle: {
     fontWeight: '100',
-    color: 'red'
   }
 });

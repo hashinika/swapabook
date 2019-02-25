@@ -95,7 +95,7 @@ export default class SwipeComponent extends Component {
   }
   
   onTouchOutside () {
-    this.setState({ isModalVisible: false });
+    this.props.resetMatchBookData();
   }
   
   // menu methods
@@ -119,7 +119,7 @@ export default class SwipeComponent extends Component {
   }
   
   render() {
-    const {navigation, swipeList} = this.props;
+    const {navigation, swipeList, matchBookData} = this.props;
     console.log('HDV this.props.matchBookData', this.props.matchBookData);
     // const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
     
@@ -135,9 +135,10 @@ export default class SwipeComponent extends Component {
         <View>
           <MatchPopUpComponent
             navigateToSwapLocationPage={this.props.navigateToSwapLocationPage}
-            data={this.props.matchBookData}
-            visible={this.state.isModalVisible}
+            data={matchBookData}
+            visible={matchBookData && matchBookData.title ? true: false}
             onTouchOutside = {() => { this.onTouchOutside() }}
+          
           />
         </View>
         <View >

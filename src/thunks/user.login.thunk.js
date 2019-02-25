@@ -6,6 +6,9 @@ import {setSwipeList} from '../actions/book.details.actions';
 import * as config from '../config/config.json';
 
 export const login = (payload) => dispatch => {
+  console.log('HDV payload :', payload);
+  
+  console.log('HDV URL : ', config.BASE_URL+config.USER.LOGIN);
   post(config.BASE_URL+config.USER.LOGIN, payload)
     .then(response => {
       console.log('HDV API response: ', response);

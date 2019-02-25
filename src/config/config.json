@@ -1,12 +1,19 @@
 {
-  "BASE_URL" : "http://10.98.204.37:3000/api/",
+  "BASE_URL" : "http://10.99.11.63:3000/api/",
   "USER" : {
-    "LOGIN": "auth/signin",
+    "LOGIN": "auth/signin"
   },
   "BOOK": {
     "ADD": "book/add",
     "GET": "book/collection",
     "GET_SWAPS": "book/swapList/",
     "SWIPE_RIGHT": "book/addSwipeRight/"
+  },
+  "GOOGLE" : {
+    "API_KEY": "AIzaSyBefQY-UKEGh7N8QPQB31M5moOCVxwXQBY",
+    "GOOGLE_PLACES": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={LAT},{LNG}&radius=20000&keyword={searchValue}&key={API_KEY}"
+  },
+  "SWAP" : {
+    "SET_MEETUP": "swap/meetup"
   }
 }

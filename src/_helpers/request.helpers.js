@@ -87,10 +87,6 @@ export async function getCurrentLocation() {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
             (location) => {
-                // latitude: location.coords.latitude,
-                // longitude: location.coords.longitude
-                //latitude: 6.951304,
-                // longitude: 79.8752162
                 resolve({
                     latitude: location.coords.latitude,
                     longitude: location.coords.longitude

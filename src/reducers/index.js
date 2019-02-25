@@ -7,6 +7,7 @@ import { RootNavigator } from '../navigators/AppNavigator';
 import { user } from './user.login.reducer';
 import { books } from './book.detail.reducer';
 import { errors } from './error.reducer';
+import { swaps } from './swap.reducer';
 
 // Start with two routes: The Main screen, with the Login screen on top.
 const firstAction = RootNavigator.router.getActionForPathAndParams('Main');
@@ -82,7 +83,8 @@ const rootReducer = combineReducers({
   auth,
   user,
   books,
-  errors
+  errors,
+  swaps
 });
 
 export default rootReducer;

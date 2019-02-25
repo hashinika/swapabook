@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, width } from 'react-native';
 import { Button, Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon } from 'native-base';
 import LocationSearch from './LocationSearch';
-import DateTimePicker from './DateTimePicker';
+import DateTimePickerComponent from './DateTimePickerComponent';
+import Summary from './Summary';
 
 export default class SwapComponent extends Component {
   
@@ -14,22 +15,27 @@ export default class SwapComponent extends Component {
     
     return (
       
-      <Container>
-          <View style={styles.LocationComponentStyle}>
-            <LocationSearch />
+      <View>
+          <View>
+            <LocationSearch
+              setSelectedLocation={this.props.setSelectedLocation}
+              swapDetails={this.props.swapDetails}
+              fetchLocations={this.props.fetchLocations} />
           </View>
           <View>
-            <DateTimePicker/>
+            <DateTimePickerComponent setSelectedDateTime={this.props.setSelectedDateTime}/>
           </View>
-      </Container>
+          <View>
+              <Summary
+                setMeetup={this.props.setMeetup}
+                swapDetails={this.props.swapDetails}/>
+          </View>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  LocationComponentStyle: {
-    height: 300
-  },
 });
 
 SwapComponent.propTypes = {
