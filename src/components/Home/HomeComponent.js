@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, View, Image, Alert } from 'react-native';
 import { Container} from 'native-base';
 import SwipeComponent from '../Swipe/SwipeComponentLink';
-import from '../'
+import Navigation from '../Navigation/NavigationComponentLink'
 
 
 export default class HomeComponent extends Component {
@@ -17,7 +17,7 @@ export default class HomeComponent extends Component {
     return (
       <Container>
         <SwipeComponent/>
-        
+        <Navigation/>
       </Container>
     );
   }

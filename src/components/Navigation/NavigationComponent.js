@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, Image, Alert } from 'react-native';
-import { Container} from 'native-base';
-import SwipeComponent from '../Swipe/SwipeComponentLink';
+import { Container, Text } from 'native-base';
 
 
-export default class HomeComponent extends Component {
+export default class NavigationComponent extends Component {
   
   constructor(props){
     super(props);
@@ -14,19 +13,17 @@ export default class HomeComponent extends Component {
 
   render() {
     return (
-      <Container>
-        
+      <Container style={styles.gridMain}>
+        <Text>
+          NavBar
+        </Text>
       </Container>
     );
   }
 }
 
-HomeComponent.propTypes = {
-  navigation: PropTypes.object.isRequired,
-};
-
-HomeComponent.navigationOptions = {
-  title: null,
-  headerLeft: null,
-  header:null
-};
+const styles = StyleSheet.create({
+  gridMain: {
+    backgroundColor: '#263238',
+  },
+});

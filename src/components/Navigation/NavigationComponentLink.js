@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import HomeComponent from './HomeComponent';
+import NavigationComponent from './NavigationComponent';
 
 function mapStateToProps(state) {
   return {
@@ -12,4 +12,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps) (HomeComponent);
+export default connect(mapStateToProps, mapDispatchToProps) (NavigationComponent);
