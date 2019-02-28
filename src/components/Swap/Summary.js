@@ -17,19 +17,20 @@ export default class Summary extends Component {
   handleSetupMeeting() {
   
     const {selectedLocation, selectedDateTime} = this.props.swapDetails;
-    const d = new Date(selectedDateTime);
+    const {meetingInit} = this.props;
+    const datetime = new Date(selectedDateTime);
     console.log('HDV selectedDateTime: ', selectedDateTime);
     if (!selectedLocation.name) {
       this.setState({
         errorMessage: 'Pick a location'
       })
-    } else if (!d.getDate()) {
+    } else if (!datetime.getDate()) {
       this.setState({
         errorMessage: 'Pick date and time'
       })
     } else{
       
-      this.props.setMeetup({selectedLocation, selectedDateTime});
+      this.props.setMeetup({selectedLocation, selectedDateTime: moment(datetime).format("YYYY-MM-DD HH:mm:ss"), meetingId: meetingInit.id });
       this.setState({
         errorMessage: ''
       })

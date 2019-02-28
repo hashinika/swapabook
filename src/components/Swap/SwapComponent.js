@@ -12,7 +12,7 @@ export default class SwapComponent extends Component {
   }
   
   render() {
-    
+    console.log('HDV meetingInit : ', );
     return (
       
       <View>
@@ -27,6 +27,7 @@ export default class SwapComponent extends Component {
           </View>
           <View>
               <Summary
+                meetingInit= {this.props.matchBookData.meetingInit}
                 setMeetup={this.props.setMeetup}
                 swapDetails={this.props.swapDetails}/>
           </View>

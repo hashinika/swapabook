@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 import SwapComponent from './SwapComponent';
-
+import {resetMatchBookData} from '../../actions/book.details.actions';
 import {navigateToPage} from '../../thunks/navigation.thunk';
 import {fetchLocations, setMeetup} from '../../thunks/swap.thunk';
 import {setSelectedLocation, setSelectedDateTime} from '../../actions/swap.actions';
 
 function mapStateToProps(state) {
   return {
-    swapDetails: state.swaps
+    swapDetails: state.swaps,
+    matchBookData: state.books.matchBookData
   };
 }
 
@@ -27,7 +28,10 @@ const mapDispatchToProps = dispatch => {
     },
     navigateToSwapLocationPage: (pageName) => {
       dispatch(navigateToPage(pageName));
-    }
+    },
+    resetMatchBookData: () => {
+      dispatch(resetMatchBookData());
+    },
   };
 };
 

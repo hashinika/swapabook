@@ -1,11 +1,12 @@
 
-import { SET_BOOK_DATA, SET_COLLECTION_DATA, SET_SWIPE_LIST, SET_MATCH_BOOK_DATA, RESET_MATCH_BOOK_DATA } from '../actions/book.details.actions';
+import { SET_BOOK_DATA, SET_COLLECTION_DATA, SET_SWIPE_LIST, SET_MATCH_BOOK_DATA, RESET_MATCH_BOOK_DATA, CLOSE_MEETUP_MODAL } from '../actions/book.details.actions';
 
 export const INITIAL_STATE = {
   volumeInfo : {},
   collection: [],
   swipeList: [],
-  matchBookData: {}
+  matchBookData: {},
+  isModalOpen: false
 };
 
 export function books (state = INITIAL_STATE, action ) {
@@ -31,13 +32,21 @@ export function books (state = INITIAL_STATE, action ) {
     case SET_MATCH_BOOK_DATA: {
       return {
         ...state,
-        matchBookData: action.payload
+        matchBookData: action.payload,
+        isModalOpen: true
       }
     }
     case RESET_MATCH_BOOK_DATA: {
       return {
         ...state,
-        matchBookData: INITIAL_STATE.matchBookData
+        matchBookData: INITIAL_STATE.matchBookData,
+        isModalOpen: false
+      }
+    }
+    case CLOSE_MEETUP_MODAL: {
+      return {
+        ...state,
+        isModalOpen: false
       }
     }
     default: {

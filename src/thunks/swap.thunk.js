@@ -1,6 +1,7 @@
 import {get, post} from "../_helpers/index";
 import {showError} from '../actions/error.actions';
 import {setPlaceData} from '../actions/swap.actions';
+import { NavigationActions } from 'react-navigation';
 import * as config from '../config/config.json';
 
 export const fetchLocations = ({searchValue, position}) => dispatch => {
@@ -28,15 +29,25 @@ export const fetchLocations = ({searchValue, position}) => dispatch => {
 };
 
 export const setMeetup = (payload) => dispatch => {
-  console.log('HDV payload :', payload);
+  console.log('HDV payload setMeetup :', payload);
   
-  post(config.BASE_URL+config.SWAP.SET_MEETUP, payload)
+  const body = {
+    meetingId: payload.meetingId,
+    selectedDateTime: payload.selectedDateTime,
+    location: {
+      name: payload.selectedLocation.name,
+      lat:  payload.selectedLocation.geometry.location.lat,
+      lng:  payload.selectedLocation.geometry.location.lng,
+      icon: payload.selectedLocation.icon
+    }
+  };
+  
+  console.log('HDV meetup body: ', body);
+  post(config.BASE_URL+config.SWAP.SET_MEETUP, body)
     .then(response => {
       console.log('HDV API response: ', response);
       if (response[0] === 200) {
-        console.log('HDV accessToken: ', response[1].accessToken);
-        setStorageValue('AUTH_TOKEN', response[1].accessToken);
-        setStorageValue('USER_ID', response[1].userId);
+        console.log('HDV accessToken: ', response[1]);
         dispatch(NavigationActions.navigate({ routeName: 'SwipeComponent' }));
       } else {
         dispatch(dispatch(showError({
