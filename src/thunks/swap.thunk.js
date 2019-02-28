@@ -48,7 +48,7 @@ export const setMeetup = (payload) => dispatch => {
       console.log('HDV API response: ', response);
       if (response[0] === 200) {
         console.log('HDV accessToken: ', response[1]);
-        dispatch(NavigationActions.navigate({ routeName: 'SwipeComponent' }));
+        dispatch(NavigationActions.navigate({ routeName: 'Home' }));
       } else {
         dispatch(dispatch(showError({
           message: response[1].reason

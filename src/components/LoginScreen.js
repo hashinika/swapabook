@@ -25,7 +25,7 @@ const LoginScreen = ({ navigation }) => (
       This is great
     </Text>
     <Button
-      onPress={() => navigation.dispatch({ type: 'SwipeComponent' })}
+      onPress={() => navigation.dispatch({ type: 'Home' })}
       title="SwipeComponent"
     />
     <Button

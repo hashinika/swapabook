@@ -16,7 +16,7 @@ export const login = (payload) => dispatch => {
         console.log('HDV accessToken: ', response[1].accessToken);
         setStorageValue('AUTH_TOKEN', response[1].accessToken);
         setStorageValue('USER_ID', response[1].userId);
-        dispatch(NavigationActions.navigate({ routeName: 'SwipeComponent' }));
+        dispatch(NavigationActions.navigate({ routeName: 'Home' }));
       } else {
         dispatch(dispatch(showError({
           message: response[1].reason
