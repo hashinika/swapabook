@@ -1,14 +1,29 @@
 
-import { SET_PLACE_DATA, SET_SELECTED_LOCATION, SET_SELECTED_DATETIME } from '../actions/swap.actions';
+import { SET_PLACE_DATA, SET_SELECTED_LOCATION, SET_SELECTED_DATETIME, SET_PENDING_MEETINGS, SET_MY_APPROVAL_OWNED_MEETINGS, SHOW_HIDE_ACCEPT_MODAL } from '../actions/swap.actions';
 
 export const INITIAL_STATE = {
   locationList:[],
   selectedLocation: {},
-  selectedDateTime: {}
+  selectedDateTime: {},
+  pendingMeetingData: {},
+  myApprovedOrPendingMeetings: {},
+  isAcceptModalOpen: false
 };
 
 export function swaps (state = INITIAL_STATE, action ) {
   switch (action.type) {
+    case SET_PENDING_MEETINGS: {
+      return {
+        ...state,
+        pendingMeetingData: action.payload
+      }
+    }
+    case SET_MY_APPROVAL_OWNED_MEETINGS: {
+      return {
+        ...state,
+        myApprovedOrPendingMeetings: action.payload
+      }
+    }
     case SET_PLACE_DATA: {
       return {
         ...state,
@@ -22,10 +37,15 @@ export function swaps (state = INITIAL_STATE, action ) {
       };
     }
     case SET_SELECTED_DATETIME: {
-      console.log('HDV SET_SELECTED_DATETIME called: ', action.payload);
       return {
         ...state,
         selectedDateTime: action.payload
+      }
+    }
+    case SHOW_HIDE_ACCEPT_MODAL: {
+      return {
+        ...state,
+        isAcceptModalOpen: action.payload
       }
     }
     default: {

@@ -32,7 +32,6 @@ export default class DateTimePickerComponent extends Component {
     });
   
     this.props.setSelectedDateTime(d);
-    console.log('A date has been picked: ', d);
     this._hideDateTimePicker();
   };
   
@@ -42,9 +41,10 @@ export default class DateTimePickerComponent extends Component {
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.meetingBtnView}>
-            <Button style={styles.meetingBtn} block  onPress={this._showDateTimePicker}>
-              <Text style={styles.meetingBtnTxt}>Pick a date and time</Text>
-            </Button>
+            <TouchableOpacity style={[styles.buttonStyle]}
+                              onPress={this._showDateTimePicker}>
+              <Text style={styles.buttonTextStyle}>Pick Date & Time </Text>
+            </TouchableOpacity>
           </View>
           <DateTimePicker
             mode="datetime"
@@ -61,12 +61,31 @@ export default class DateTimePickerComponent extends Component {
 }
 
 const styles = StyleSheet.create({
+  buttonStyle: {
+    height: 50,
+    width: '80%',
+    borderColor: '#e0f2f1',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: "center",
+    borderWidth: 1,
+    borderRadius: 4,
+    backgroundColor: 'transparent',
+  },
+  buttonTextStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: "center",
+    color: '#e0f2f1',
+    fontSize: 20,
+  },
   containerStyle: {
   },
   meetingBtnView: {
     justifyContent: 'center',
     width: '100%',
     alignItems: 'center',
+    padding: 10,
   },
   meetingBtn: {
     marginTop: 5,

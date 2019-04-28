@@ -12,10 +12,9 @@ export default class SwapComponent extends Component {
   }
   
   render() {
-    console.log('HDV meetingInit : ', );
     return (
       
-      <View>
+      <View style={styles.headerStyle}>
           <View>
             <LocationSearch
               setSelectedLocation={this.props.setSelectedLocation}
@@ -25,7 +24,7 @@ export default class SwapComponent extends Component {
           <View>
             <DateTimePickerComponent setSelectedDateTime={this.props.setSelectedDateTime}/>
           </View>
-          <View>
+          <View >
               <Summary
                 meetingInit= {this.props.matchBookData.meetingInit}
                 setMeetup={this.props.setMeetup}
@@ -37,6 +36,21 @@ export default class SwapComponent extends Component {
 }
 
 const styles = StyleSheet.create({
+  textHeader: {
+    color: '#e0f2f1',
+    fontSize: 30,
+    fontFamily: 'Billabong'
+  },
+  headerView: {
+    paddingTop: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center'
+  },
+  headerStyle: {
+    backgroundColor: '#004d40',
+    color:'#e0f2f1',
+  },
 });
 
 SwapComponent.propTypes = {
@@ -44,6 +58,10 @@ SwapComponent.propTypes = {
 
 SwapComponent.navigationOptions = ({navigation}) => {
   return  {
-    title: 'Setup a meeting'
+    headerTitle: <View style={ styles.headerView }><Text style={ styles.textHeader }>Setup meeting</Text></View>,
+    headerStyle: {
+      backgroundColor: '#004d40',
+      color:'#e0f2f1',
+    },
   }
 };

@@ -26,18 +26,17 @@ export default class AlertBox extends Component {
     const {message} =this.props;
     const {isShow} = this.state;
     return (
-        <Container style={styles.alert}>
+        <View style={styles.alert}>
           <View style={styles.messageBox}>
           <Text style={styles.messageText}>{message}</Text>
           </View>
-        </Container>
+        </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   alert: {
-    backgroundColor: '#ff0619',
     textAlign: 'center',
     alignContent:'center'
   },

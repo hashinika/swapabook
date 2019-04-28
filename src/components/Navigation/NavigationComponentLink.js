@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import NavigationComponent from './NavigationComponent';
-
+import {navigateToPage} from '../../thunks/navigation.thunk';
 function mapStateToProps(state) {
   return {
   };
@@ -8,6 +8,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
+    navigate: (pageName) => {
+      dispatch(navigateToPage(pageName));
+    },
   };
 };
 

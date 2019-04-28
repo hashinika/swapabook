@@ -30,6 +30,8 @@ export function setSwipeList (payload) {
   return { type: SET_SWIPE_LIST, payload}
 }
 
+
+
 export const CLOSE_MEETUP_MODAL = 'CLOSE_MEETUP_MODAL';
 
 export function closeMeetupModal (payload) {

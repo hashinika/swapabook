@@ -3,6 +3,7 @@ import HomeComponent from './HomeComponent';
 
 function mapStateToProps(state) {
   return {
+    loaderVisible: state.user.loaderVisible
   };
 }
 

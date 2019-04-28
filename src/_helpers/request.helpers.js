@@ -26,7 +26,6 @@ export function post(url, body, headers) {
   return getStorageValue('AUTH_TOKEN').then(token =>  {
         headers = Object.assign({}, HEADERS, headers);
         if(token) {
-          console.log('HDV token post: ', token);
           headers = Object.assign(headers, {
             'x-access-token': token
           });

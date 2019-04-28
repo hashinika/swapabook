@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, StyleSheet, Text as TrueText } from 'react-native';
 import { Button, Text } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import moment from 'moment';
@@ -15,11 +15,10 @@ export default class Summary extends Component {
   }
   
   handleSetupMeeting() {
-  
+    
     const {selectedLocation, selectedDateTime} = this.props.swapDetails;
     const {meetingInit} = this.props;
     const datetime = new Date(selectedDateTime);
-    console.log('HDV selectedDateTime: ', selectedDateTime);
     if (!selectedLocation.name) {
       this.setState({
         errorMessage: 'Pick a location'
@@ -42,52 +41,90 @@ export default class Summary extends Component {
     const {selectedLocation, selectedDateTime} = this.props.swapDetails;
     const datetime = new Date(selectedDateTime);
     const {errorMessage} = this.state;
-    console.log('HDV this.props.swapDetails', this.props.swapDetails);
     return (
-  
-      <Grid style={styles.containerStyle}>
-        
-        <View style={styles.colStyle} >
+      
+      <View style={styles.containerStyle}>
           <View style={styles.summmaryBox}>
-            <View style={styles.summmaryBoxTextBox}>
-              <Text style={styles.summmaryBoxText}>Location: {selectedLocation && selectedLocation.name? selectedLocation.name: '---'}</Text>
-              <Text style={styles.summmaryBoxText}>Date & Time: {datetime && datetime.getDate()?  moment(datetime).format("YYYY-MM-DD HH:mm:ss"): '---'}</Text>
-            </View>
-            {errorMessage !== '' && <AlertBox message={errorMessage}/>}
-            <View style={styles.meetingBtnView}>
-              <Button style={styles.meetingBtn} block rounded onPress={() => {this.handleSetupMeeting()}}>
-                <Text style={styles.meetingBtnTxt}>Setup Meeting</Text>
-              </Button>
-            </View>
+            <Row size={50}>
+              <Col>
+                <View style={styles.summmaryBoxTextBox}>
+                  <Text style={styles.summmaryBoxText}>Location: {selectedLocation && selectedLocation.name? selectedLocation.name: '---'}</Text>
+                  <Text style={styles.summmaryBoxText}>Date & Time: {datetime && datetime.getDate()?  moment(datetime).format("YYYY-MM-DD HH:mm:ss"): '---'}</Text>
+                </View>
+              </Col>
+            </Row>
+            <Row size={20}>
+              <Col style={styles.errorCol}>
+                {errorMessage !== '' &&
+                <Text style={styles.errorText}>{errorMessage}!</Text>}
+              </Col>
+            </Row>
+            <Row size={30}>
+              <Col style={styles.meetingBtnView}>
+                  <TouchableOpacity style={[styles.buttonStyle]}
+                                    onPress={() => {this.handleSetupMeeting()}}>
+                    <TrueText style={styles.buttonTextStyle}> Setup Meeting </TrueText>
+                  </TouchableOpacity>
+              </Col>
+            </Row>
           </View>
-        </View>
-      </Grid>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  errorCol: {
+  },
+  errorText: {
+    textAlign:'center',
+    color: 'red',
+    fontSize: 20
+  },
+  buttonStyle: {
+    height: 50,
+    width: '100%',
+    borderColor: '#e0f2f1',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: "center",
+    borderWidth: 1,
+    borderRadius: 4,
+    backgroundColor: 'transparent',
+  },
+  buttonTextStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: "center",
+    color: '#e0f2f1',
+    fontSize: 20,
+  },
   containerStyle: {
-    height: '100%',
+    height: 200,
   },
   colStyle: {
-    marginTop: 10,
-    marginBottom: 5,
-    justifyContent: "flex-start",
-    width: '100%',
+  
   },
   summmaryBox: {
     justifyContent: 'center',
     width: '100%',
-    height: 150,
+    height: '100%',
     paddingLeft: '10%',
     paddingRight: '10%',
+    paddingBottom: 20,
+    paddingTop: 10,
+    backgroundColor: '#212121'
+  },
+  summmaryBoxTextBox: {
+    marginTop: 20
   },
   meetingBtnView: {
     flex:1,
     justifyContent: 'center',
     width: '100%',
     alignItems: 'center',
+    paddingTop: 5,
+    paddingBottom: 20,
   },
   meetingBtn: {
     marginTop: 10,
@@ -101,7 +138,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   summmaryBoxText: {
-    fontSize: 18
+    fontSize: 20,
+    color: '#fff'
   },
   headerStyle: {
     fontWeight: '100',

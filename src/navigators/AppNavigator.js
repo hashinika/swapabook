@@ -7,11 +7,13 @@ import {
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
 
-import LoginComponent from '../components/LoginComponentLink';
-import MainScreen from '../components/MainScreen';
+import UserComponent from '../components/User/UserComponentLink';
+import LoginComponent from '../components/Login/LoginComponentLink';
+import SignUpComponent from '../components/Login/SignUpComponentLink';
 import ProfileScreen from '../components/ProfileScreen';
 import SplashScreen from '../components/Splash/SplashScreenLink';
 import HomeComponent from '../components/Home/HomeComponentLink';
+import MeetingComponent from '../components/Meetings/MeetingComponentLink';
 import SwipeComponent from '../components/Swipe/SwipeComponentLink';
 import ScannerComponent from '../components/widgets/scanner/ScannerComponentLink';
 import BookDetailComponent from '../components/Book/BookDetailComponentLink';
@@ -20,7 +22,6 @@ import NavButton from '../components/widgets/NavButton/NavButton';
 import AlertBox from '../components/widgets/Alert/AlertBox';
 import SwapComponent from '../components/Swap/SwapComponentLink';
 
-import LoginScreen from '../components/LoginScreen';
 const middleware = createReactNavigationReduxMiddleware(
   'root',
   state => state.nav
@@ -28,8 +29,8 @@ const middleware = createReactNavigationReduxMiddleware(
 
 const RootNavigator = createStackNavigator({
   Login: { screen: LoginComponent },
+  Signup: { screen: SignUpComponent },
   Home: {screen: HomeComponent},
-  Main: { screen: MainScreen },
   Profile: { screen: ProfileScreen },
   SplashScreen: {screen: SplashScreen},
   SwipeComponent: {screen: SwipeComponent},
@@ -38,7 +39,9 @@ const RootNavigator = createStackNavigator({
   AlertBox: {screen: AlertBox},
   BookDetailComponent: {screen: BookDetailComponent},
   CollectionComponent: {screen: CollectionComponent},
-  SwapComponent: {screen: SwapComponent}
+  MeetingComponent: {screen:MeetingComponent},
+  SwapComponent: {screen: SwapComponent},
+  User: {screen: UserComponent}
 });
 
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');

@@ -2,6 +2,11 @@
   "name": "swapabook",
   "version": "0.0.1",
   "private": true,
+  "rnpn" : {
+    "assets": [
+      "./assets/fonts"
+    ]
+  },
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "build-bundle":"react-native bundle --dev false --platform android --entry-file index.js --bundle-output ./android/app/build/intermediates/assets/debug/index.android.bundle --assets-dest ./android/app/build/intermediates/res/merged/debug",

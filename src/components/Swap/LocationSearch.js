@@ -24,7 +24,6 @@ export default class LocationSearch extends Component {
     
     if (searchValue && searchValue.length >3) {
       getCurrentLocation().then((position) => {
-        console.log('HDV position:', position);
         this.setState({
           currentLocation: {
             latitude: position.latitude,
@@ -45,7 +44,7 @@ export default class LocationSearch extends Component {
   renderList(item) {
     return (
       <ListItem onPress= {() => this.onPressItem(item)}>
-        <Text>{item.name}</Text>
+        <Text style={styles.listItemStyle}>{item.name}</Text>
       </ListItem>
     );
   }
@@ -59,11 +58,10 @@ export default class LocationSearch extends Component {
   }
   
   render() {
-    console.log('HDV swaps swapDetails :', this.props.swapDetails);
     const {locationList} = this.props.swapDetails;
     return (
       <View style={styles.containerStyle}>
-        <Header searchBar rounded>
+        <Header searchBar rounded style={styles.headerStyle}>
           <Item>
             <Icon name="ios-search" />
             <Input placeholder="Search for a venue"  value={this.state.searchValue} onChangeText={(text) => this.handleSearch(text)}/>
@@ -73,7 +71,7 @@ export default class LocationSearch extends Component {
             <Text>Search</Text>
           </Button>
         </Header>
-        <Content>
+        <Content style={styles.contentStyle}>
           {locationList
           && locationList.length>0 &&
           <FlatList
@@ -90,9 +88,17 @@ export default class LocationSearch extends Component {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    height: 350
+    height: 350,
+    backgroundColor: '#004d40',
+    color:'#e0f2f1',
   },
   headerStyle: {
-    fontWeight: '100',
+    backgroundColor: '#004d40',
+    color:'#e0f2f1',
+  },
+  listItemStyle: {
+    backgroundColor: '#004d40',
+    color:'#e0f2f1',
+    fontSize:20,
   }
 });

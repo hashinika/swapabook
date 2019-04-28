@@ -15,8 +15,8 @@ export default class RatingWidget extends Component {
   render() {
     const {disabled,onUpdate, defaultValue , count, half, starSize} = this.props;
     return (
-      <View style={{alignItems:'center', backgroundColor: 'rgba(52, 52, 52, 0.8)', }}>
-        {disabled? <Text></Text>: <Text>Rate the condition of the book.</Text>}
+      <View style={{alignItems:'center'}}>
+        {disabled? <Text></Text>: <Text style={styles.textStyle}>Rate the condition of the book.</Text>}
         <Stars
           disabled={disabled}
           update={(val)=>{onUpdate(val)}}
@@ -42,7 +42,10 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
   myEmptyStarStyle: {
-    color: 'white',
+    color: '#e0f2f1',
+  },
+  textStyle: {
+    color: '#e0f2f1'
   }
 });
 

@@ -20,7 +20,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchBookDetails(payload));
     },
     testFetchBookDetails: () => {
-      dispatch(fetchBookDetails('9781451648546'));
+      ////9781451648546
+      dispatch(fetchBookDetails('1234567890213'));
     }
   };
 };

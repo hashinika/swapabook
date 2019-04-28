@@ -10,7 +10,7 @@ import { errors } from './error.reducer';
 import { swaps } from './swap.reducer';
 
 // Start with two routes: The Main screen, with the Login screen on top.
-const firstAction = RootNavigator.router.getActionForPathAndParams('Main');
+const firstAction = RootNavigator.router.getActionForPathAndParams('Home');
 const tempNavState = RootNavigator.router.getStateForAction(firstAction);
 const secondAction = RootNavigator.router.getActionForPathAndParams('Login');
 const initialNavState = RootNavigator.router.getStateForAction(

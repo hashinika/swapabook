@@ -12,7 +12,7 @@ export default class NavButton extends Component {
   render() {
     const {navigation} = this.props;
     return (
-      <View>
+      <View >
         <Button onPress={() => navigation.dispatch({ type: 'ScannerComponent' })}>
           <Text>Scan</Text>
         </Button>

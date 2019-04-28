@@ -1,13 +1,16 @@
 {
-  "BASE_URL" : "http://10.99.11.63:3000/api/",
+  "BASE_URL" : "https://swappbook-api.herokuapp.com/api/",
   "USER" : {
-    "LOGIN": "auth/signin"
+    "LOGIN": "auth/signin",
+    "SIGNUP": "auth/signup",
+    "USER": "user/"
   },
   "BOOK": {
     "ADD": "book/add",
     "GET": "book/collection",
     "GET_SWAPS": "book/swapList/",
-    "SWIPE_RIGHT": "book/addSwipeRight/"
+    "SWIPE_RIGHT": "book/addSwipeRight/",
+    "REDEEM":"book/redeem"
   },
   "GOOGLE" : {
     "API_KEY": "AIzaSyBefQY-UKEGh7N8QPQB31M5moOCVxwXQBY",
@@ -15,5 +18,10 @@
   },
   "SWAP" : {
     "SET_MEETUP": "swap/meetup"
+  },
+  "MEETING": {
+    "getApprovalPendingOrPendingMeetupsForMe": "meetup/getApprovalPendingOrPendingMeetupsForMe/",
+    "myApprovedOrPendingMeetings":"meetup/myApprovedOrPendingMeetings/",
+    "acceptMeetup": "meetup/acceptMeetup/"
   }
 }

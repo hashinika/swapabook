@@ -6,7 +6,6 @@ import {showError} from '../actions/error.actions';
 import {setCollectionData} from '../actions/book.details.actions';
 
 export const addToCollection = (payload) => dispatch => {
-  console.log('HDV Add to collection payload: ', payload);
   
   const body = {
     ISBN_13: payload.industryIdentifiers[0].identifier,
@@ -27,18 +26,16 @@ export const addToCollection = (payload) => dispatch => {
   };
   post(config.BASE_URL+config.BOOK.ADD, body)
     .then(response => {
-      console.log('HDV API response: ', response);
       if (response[0] === 200) {
         dispatch(NavigationActions.navigate({ routeName: 'CollectionComponent' }));
       } else {
         dispatch(dispatch(showError({
           message: response[1].reason
         })));
-        console.log('HDV Error 123:', response[0], response[1].reason);
+        console.log('Error:', response[0], response[1].reason);
       }
     })
     .catch(error => {
-      console.log('HDV error 99', error);
       dispatch(dispatch(showError({
         message: 'Server Error Occurred'
       })));
@@ -47,10 +44,8 @@ export const addToCollection = (payload) => dispatch => {
 export const getCollection = (payload) => dispatch => {
   get(config.BASE_URL+config.BOOK.GET)
     .then(response => {
-      console.log('HDV response: ', response);
       if (response[0] === 200) {
         dispatch(setCollectionData(response[1]));
-        console.log('HDV res123', response[1]);
       }
     })
     .catch(error => {
@@ -58,25 +53,48 @@ export const getCollection = (payload) => dispatch => {
     });
 };
 export const fetchBookDetails = (payload) => dispatch => {
-  get("https://www.googleapis.com/books/v1/volumes?q=isbn:{ISBN}"
-    .replace('{ISBN}', payload))
+  
+  const body = {
+    ISBN_13: payload
+  };
+  
+  post(config.BASE_URL+config.BOOK.REDEEM, body)
     .then(response => {
-      // console.log('HDV response: ', response);
-      if (response[0] === 200 && response[1].items.length > 0) {
-        //dispatch(eventActions.getEvent(response[1]));
-        console.log('HDV res1', response[1].items);
-        dispatch(setBookData(response[1].items[0].volumeInfo));
-        dispatch(NavigationActions.navigate({ routeName: 'BookDetailComponent' }));
+      // check if the book can be redeemed.
+      if (response[0] === 200) {
+        if(response[1] && response[1].userId) {
+          dispatch(NavigationActions.navigate({routeName:'User'}));
+          // score updated go to user page show score
+        } else {
+          // fetch book details
+          get("https://www.googleapis.com/books/v1/volumes?q=isbn:{ISBN}"
+            .replace('{ISBN}', payload))
+            .then(response => {
+              if (response[0] === 200 && response[1].items.length > 0) {
+                dispatch(setBookData(response[1].items[0].volumeInfo));
+                dispatch(NavigationActions.navigate({ routeName: 'BookDetailComponent' }));
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+        
+      } else {
+        dispatch(showError({
+          message: response[1].reason
+        }));
       }
+      
     })
     .catch(error => {
-      console.log(error);
+      dispatch(dispatch(showError({
+        message: 'Server Error Occurred'
+      })));
     });
 };
 
 export const swipeRight = (payload) => dispatch => {
-  console.log('HDV swipeRight payload: ', payload);
-  
   const body = {
     BOOK_ID: payload.id,
     BOOK_OWNER_ID: payload.userId
@@ -84,12 +102,9 @@ export const swipeRight = (payload) => dispatch => {
   
   post(config.BASE_URL+config.BOOK.SWIPE_RIGHT, body)
     .then(response => {
-      console.log('HDV API swipeRight response: ', response);
       if (response[0] === 200) {
-        console.log('HDV match :', response[1]);
-        console.log('HDV API  swipeRight response: ', response);
         if(response[1] && response[1].title) {
-          console.log('HDV swipe match found !');
+          console.log('swipe match found !');
           dispatch(setMatchBookData(response[1]));
         }
         
@@ -97,11 +112,11 @@ export const swipeRight = (payload) => dispatch => {
         dispatch(showError({
           message: response[1].reason
         }));
-        console.log('HDV Error 123:', response[0], response[1].reason);
+        console.log('Error:', response[0], response[1].reason);
       }
     })
     .catch(error => {
-      console.log('HDV error 99', error);
+      console.log('Error: ', error);
       dispatch(dispatch(showError({
         message: 'Server Error Occurred'
       })));

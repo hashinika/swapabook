@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, Image, Alert } from 'react-native';
+import { StyleSheet, View, Image, Alert, TouchableOpacity, Text as TrueText } from 'react-native';
 import { Container, Button, Content, Form, Item, Input, Text } from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Dialog, { SlideAnimation, DialogContent } from 'react-native-popup-dialog';
@@ -15,26 +15,6 @@ export default class AlertBox extends Component {
   
   componentDidMount(){
   }
-
-  // ISBN_10: "1451648545"
-  // ISBN_13: "9781451648546"
-  // author: "Walter Isaacson"
-  // bookQualityRating: 4
-  // category: "Biography & Autobiography"
-  // createdAt: "2019-01-17T12:23:16.000Z"
-  // description: "Draws on more than forty interviews with Steve Jobs, as well as interviews with family members, friends, competitors, and colleagues to offer a look at the co-founder and leading creative force behind the Apple computer company."
-  // id: 12
-  // language: "en"
-  // pageCount: "630"
-  // publishedDate: "2011"
-  // publisher: "Simon and Schuster"
-  // smallThumbnail: "http://books.google.com/books/content?id=8U2oAAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
-  // subTitle: ""
-  // thumbnail: "http://books.google.com/books/content?id=8U2oAAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-  // title: "Steve Jobs"
-  // updatedAt: "2019-01-17T12:23:16.000Z"
-  // userId: 1
-  // webReaderLink: "http://books.google.com/books?id=8U2oAAAAQBAJ&printsec=frontcover&dq=isbn:9781451648546&hl=&cd=1&source=gbs_api"
   
   handleSetupSwap() {
     this.props.onTouchOutside();
@@ -56,14 +36,14 @@ export default class AlertBox extends Component {
           slideFrom: 'bottom',
         })}
       >
-        <DialogContent>
+        <DialogContent style={{backgroundColor: '#fff'}}>
           <View style={styles.container}>
            <Grid style={styles.grid}>
              <Row style={styles.headerRow}>
                <Col size={25}></Col>
                <Col size={50}>
                  <View>
-                   <Text style={styles.headerRowText}> We have a match !</Text>
+                   <TrueText style={styles.headerRowText}> We have a match !</TrueText>
                  </View>
                </Col>
                <Col size={25}></Col>
@@ -77,33 +57,39 @@ export default class AlertBox extends Component {
                  </View>
                </Col>
                <Col style={styles.colTwo} size={55}>
-                 <View style={styles.textView}>
-                   <Text>{title}</Text>
-                   <Text>{author}</Text>
-                   <Text>
-                     {description}
-                   </Text>
-                 </View>
-                 <View>
-                   <RatingWidget
-                     disabled={true}
-                     defaultValue={bookQualityRating}
-                     count={5}
-                     half={false}
-                     starSize={20}
-                   />
-                 </View>
-                 
-                 <View>
-                   
+                 <Row style={styles.textView}>
                    <Col>
-                     <Button
-                       onPress={() => {this.handleSetupSwap()}}
-                       style={styles.swapButton}>
-                       <Text>Setup Swap</Text>
-                     </Button>
+                     <Text style={styles.titleStyle}>{title}</Text>
+                     <Text style={styles.authorStyle}>{author}</Text>
+                     <View style={styles.descStyleView}>
+                       <Text style={styles.descStyle} note numberOfLines={5}>
+                         {description}
+                       </Text>
+                     </View>
                    </Col>
-                 </View>
+                 </Row>
+                 <Row>
+                   <Col>
+                     <RatingWidget
+                       disabled={true}
+                       defaultValue={bookQualityRating}
+                       count={5}
+                       half={false}
+                       starSize={20}
+                     />
+                   </Col>
+                 </Row>
+                 <Row>
+                   <Row>
+                     <Col style={styles.btnColStyle}>
+                       <TouchableOpacity style={[styles.buttonStyle]}
+                                         onPress={() => {this.handleSetupSwap()}}
+                       >
+                         <Text style={styles.buttonTextStyle}> Setup Swap </Text>
+                       </TouchableOpacity>
+                     </Col>
+                   </Row>
+                 </Row>
                </Col>
              </Row>
            </Grid>
@@ -115,8 +101,50 @@ export default class AlertBox extends Component {
 }
 
 const styles = StyleSheet.create({
+  titleStyle:{
+    fontSize:20,
+    color: '#fafafa'
+  },
+  authorStyle: {
+    color: '#f5f5f5'
+  },
+  descStyleView: {
+    padding: 5,
+  },
+  descStyle:{
+    color: '#f5f5f5'
+  },
+  btnColStyle: {
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 5,
+    marginTop:2
+  },
+  buttonStyle: {
+    height: 35,
+    width: '100%',
+    borderColor: '#e0f2f1',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: "center",
+    borderWidth: 1,
+    borderRadius: 4,
+    backgroundColor: 'transparent'
+  },
+  buttonTextStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: "center",
+    color: '#e0f2f1',
+    fontSize: 20,
+  },
   swapButton: {
-    height: 25,
+    height: 40,
+    width: '100%'
+  },
+  swapButtonText: {
+    flex:1,
+    textAlign: 'center'
   },
   headerRow: {
     height: 25,
@@ -124,29 +152,28 @@ const styles = StyleSheet.create({
   },
   headerRowText: {
     textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 30,
     marginTop: 0,
-    width: 200,
-    backgroundColor: 'yellow',
+    width: '100%',
+    color: '#fff',
+    fontFamily: 'Billabong'
   },
   container: {
     width: 350,
-    height: 300,
-    backgroundColor: 'blue'
+    height: 350,
   },
   grid: {
     marginTop: 20,
     marginBottom: 20,
     marginLeft: 5,
     marginRight: 5,
-    backgroundColor: 'red'
+    backgroundColor: '#004d40'
   },
   colOne: {
-    backgroundColor: 'purple'
+    margin: 5
   },
   colTwo: {
-    backgroundColor: 'green'
+  
   },
   thumbnailContainer: {
     padding: 5,
@@ -156,6 +183,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   textView: {
+    padding: 5,
     height: 150,
   }
 });

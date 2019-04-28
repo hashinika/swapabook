@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
-import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon } from 'native-base';
+import { View, Icon, Text } from 'native-base';
 import { RNCamera } from 'react-native-camera';
 
 export default class ScannerComponent extends Component {
@@ -11,13 +11,7 @@ export default class ScannerComponent extends Component {
       barcode: ''
     }
   }
-  
-  componentDidMount(){
-    // for testing only else remove
-    this.props.testFetchBookDetails();
-    
-  }
-  
+
   takePicture = async function() {
     if (this.camera) {
       const options = { quality: 0.5, base64: true };
@@ -46,20 +40,12 @@ export default class ScannerComponent extends Component {
               });
             }}
           />
-          <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center',}}>
+          <View style={styles.detailView}>
             <TouchableOpacity
               onPress={this.takePicture.bind(this)}
               style = {styles.capture}
             >
-              {this.props.volumeInfo.authors && this.props.volumeInfo.authors.length > 0
-                &&
-                <View>
-                  <Text style={{fontSize: 14}}>ISBN : {this.state.barcode}</Text>
-                  <Text style={{fontSize: 14}}>{this.props.volumeInfo.title}</Text>
-                  <Text style={{fontSize: 14}}>{this.props.volumeInfo.authors[0]}</Text>
-                </View>
-              }
-              
+              <Icon name="qr-scanner" style={styles.iconStyle} />
             </TouchableOpacity>
           </View>
         </View>
@@ -71,7 +57,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'black'
+    backgroundColor: '#004d40',
   },
   preview: {
     flex: 1,
@@ -86,5 +72,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignSelf: 'center',
     margin: 20
+  },
+  detailView: {
+    marginTop: 25
+  },
+  textHeader: {
+    color: '#e0f2f1',
+    fontSize: 30,
+    fontFamily: 'Billabong'
+  },
+  headerView: {
+    paddingTop: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center'
   }
 });
+
+ScannerComponent.navigationOptions = ({navigation}) => {
+  return  {
+    headerTitle: <View style={ styles.headerView }><Text style={ styles.textHeader }>Scan the book</Text></View>,
+    headerStyle: {
+      backgroundColor: '#004d40',
+      color:'#e0f2f1',
+    }
+  }
+};

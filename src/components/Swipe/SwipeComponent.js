@@ -1,30 +1,10 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, width } from 'react-native';
-import { Button, Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon } from 'native-base';
-import NavButton from '../widgets/NavButton/NavButton';
-import Dialog, { SlideAnimation, DialogContent } from 'react-native-popup-dialog';
+import { Button, Container, Text as TextBase, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon } from 'native-base';
+import { Col, Row, Grid } from "react-native-easy-grid";
 import MatchPopUpComponent from '../Book/MatchPopUpComponent';
 import RatingWidget from '../widgets/Rating/RatingWidget';
-import SideMenu from 'react-native-side-menu';
-import Menu from '../widgets/Drawer/Menu';
 
-const cards = [
-  {
-    text: 'A man with one of those faces',
-    name: 'Caimh McDonnell',
-    image: 'http://res.cloudinary.com/haswind/image/upload/v1545103057/b86e7084d7e2b739ed33d65ea3c1da77393941bd_s0czuq.jpg',
-  },
-  {
-    text: 'Understanding American Power',
-    name: 'Bryan Mabee',
-    image: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0bfe3a32853065.569640d8e4479.jpg'
-  },
-  {
-    text: 'Pride and Prejudice',
-    name: 'Jane Austen',
-    image: 'https://cdn.flipsnack.com/blog/wp-content/uploads/2018/06/09181232/Pride-and-prejudice.jpg'
-  },
-];
 
 export default class SwipeComponent extends Component {
   
@@ -42,25 +22,13 @@ export default class SwipeComponent extends Component {
       selectedItem: 'About',
     };
   }
-  
-  componentDidMount(){
-    this.props.getSwipeList({});
-    
-  }
+
   
   onSwipeRight(item) {
     this.setState({
-      // isSwipedRight: true,
       isModalVisible: true
     });
-    
-    // setInterval(() => {
-    //   this.setState({
-    //     isSwipedRight: false
-    //   })
-    // }, 500);
-    
-    console.log('Item right:', item);
+
     this.props.swipeRight(item);
   }
   
@@ -69,26 +37,44 @@ export default class SwipeComponent extends Component {
   }
   
   renderCard(item) {
-    console.log('HDV item: ', item);
     return (
-      <Card style={{ elevation: 3 }}>
-        <CardItem>
-          <Left>
-            <Thumbnail source={{uri: 'http://res.cloudinary.com/haswind/image/upload/v1504502850/teamgrid/hashi/0.jpg'}} />
-            <Body>
-            <Text style={{fontWeight: 'bold', fontSize:31}}>{item.title}</Text>
-            <Text>{item.id}</Text>
-            </Body>
-          </Left>
+      <Card style={styles.cardStyle}>
+        <CardItem header bordered style={styles.cardItemStyle}>
+          <Body>
+            <Text style={styles.textHead}>{item.user.name}</Text>
+          </Body>
+          <Text style={styles.textHead}>Score: {item.user.score || 0}</Text>
         </CardItem>
-        <CardItem cardBody>
-          <Image style={{ height: 300, flex: 1 }}
-                 source={{uri: item.thumbnail}}/>
+        <CardItem cardBody bordered style={styles.cardItemStyle}>
+          <Grid>
+            <Row style={styles.gridStyle}>
+              <Col style={styles.imageColStyle} size={5}>
+                <Image style={styles.imageStyle} source={{uri: item.thumbnail}}/>
+              </Col>
+              <Col style={styles.contentColStyle} size={7}>
+                <Row style={styles.rowOne} size={80}>
+                  <Col>
+                    <Text style={styles.titleStyle}>{item.title}</Text>
+                    <Text style={styles.authorStyle}>{item.author}</Text>
+                    <TextBase style={styles.descStyle} note numberOfLines={5}>{item.description}</TextBase>
+                  </Col>
+                </Row>
+                <Row style={styles.rowTwo} size={20}>
+                  <Col>
+                    <RatingWidget
+                      disabled={true}
+                      defaultValue={item.bookQualityRating}
+                      count={5}
+                      half={false}
+                      starSize={25}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Grid>
         </CardItem>
-        <CardItem>
-          <Icon name="heart" style={{ color: '#ED4A6A' }} />
-          <Text>{item.description}</Text>
-          <Text>{item.bookQualityRating}</Text>
+        <CardItem header bordered style={styles.cardItemStyle}>
         </CardItem>
       </Card>
     );
@@ -111,63 +97,88 @@ export default class SwipeComponent extends Component {
   }
   
   onMenuItemSelected = item => {
-    console.log('HDV item clicked!', item);
     this.setState({
       isOpen: false,
       selectedItem: item,
     });
-  }
+  };
   
   render() {
     const {navigation, swipeList, matchBookData, isModalOpen} = this.props;
-    
+
     return (
       
-        <Container style={{ backgroundColor: this.state.isSwipedRight? 'green': '#D0D0D0', marginTop:50 }}>
-        <View>
-          <MatchPopUpComponent
-            navigateToSwapLocationPage={this.props.navigateToSwapLocationPage}
-            data={matchBookData}
-            visible={isModalOpen}
-            onTouchOutside = {() => { this.onTouchOutside() }}
-          
-          />
-        </View>
-        <View >
-          { swipeList && swipeList.length > 0 &&
-            <DeckSwiper
-              dataSource={swipeList}
-              onSwipeRight={(item) => {this.onSwipeRight(item)}}
-              onSwipeLeft={(item) => {this.onSwipeLeft(item)}}
-              renderItem={item => this.renderCard(item)}
-            />
-          }
-  
-          <Button
-            onPress={this.toggle}/>
-        </View>
+        <Container style={styles.mainContainer}>
+          <View style={styles.mainView}>
+            <View>
+              <MatchPopUpComponent
+                navigateToSwapLocationPage={this.props.navigateToSwapLocationPage}
+                data={matchBookData}
+                visible={isModalOpen}
+                onTouchOutside = {() => { this.onTouchOutside() }}
+              
+              />
+            </View>
+            <View >
+              { swipeList && swipeList.length > 0 &&
+                <DeckSwiper
+                  ref={(c) => this._deckSwiper = c}
+                  dataSource={swipeList}
+                  onSwipeRight={(item) => {this.onSwipeRight(item)}}
+                  onSwipeLeft={(item) => {this.onSwipeLeft(item)}}
+                  renderItem={item => this.renderCard(item)}
+                />
+              }
+              <Button
+                onPress={this.toggle}/>
+            </View>
+          </View>
       </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  overlay: {
-    left: 0,
-    top: 0,
-    opacity: 1,
-    backgroundColor: 'black',
-    width: '100%',
-    height: '100%'
-  }
+  cardStyle: {
+    elevation: 3,
+  },
+  textHead: {
+    color: '#fafafa',
+    fontSize:20
+  },
+  textHeadLeft: {
+    color: '#fafafa',
+    textAlign: 'right'
+  },
+  cardItemStyle:{
+    backgroundColor:'#004d40',
+  },
+    gridStyle: {
+      padding: 10
+    },
+    imageColStyle:{
+      padding: 10
+    },
+    contentColStyle:{
+      padding: 10
+    },
+    titleStyle:{
+      fontSize:25,
+      color: '#fafafa'
+    },
+    authorStyle: {
+      color: '#f5f5f5'
+    },
+    descStyle:{
+      color: '#f5f5f5'
+    },
+    imageStyle:{
+      flex:1,
+      height: 250
+    },
+    mainContainer : {
+      paddingTop: 30,
+      paddingBottom: 30
+    }
 });
 
-SwipeComponent.propTypes = {
-};
-
-SwipeComponent.navigationOptions = ({navigation}) => {
-  return  {
-    title: 'Home',
-    headerRight: <NavButton navigation={navigation}/>
-  }
-};
